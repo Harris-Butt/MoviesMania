@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+
+{% load static %}
+<!--
+	Full Motion by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Full Motion</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+{#        <link rel="stylesheet" type="text/css " href ="{% static 'css/style.min.css' %}">#}
+	</head>
+
+
+	<body id="top">
+            <header class="header">
+            <div class="logo">Movies Mania</div>
+            <form class="search-form"  method="post" action="{% url 'page1' %}">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Search movie by name " name="movie_name">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+            <div class="navbar">
+                <ul>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li>Contact Us</li>
+                    <li>About Us</li>
+                </ul>
+            </div>
+
+        </header>
+			<!-- Banner -->
+			<!--
+				To use a video as your background, set data-video to the name of your video without
+				its extension (eg. images/banner). Your video must be available in both .mp4 and .webm
+				formats to work correctly.
+			-->
+				<section id="banner" data-video="{% static 'images/banner1' %}">
+					<div class="inner">
+						<header>
+							<h1>Movies Mania</h1>
+							<p>A responsive video gallery template with a functional lightbox<br />
+							designed by <a href="https://templated.co/">Templated</a> and released under the Creative Commons License.</p>
+						</header>
+						<a href="#main" class="more">Learn More</a>
+					</div>
+				</section>
+
+
+			<!-- Main -->
+				<div id="main">
+
+{#                    <div class="search-container">#}
+{#                        <form class="search-form"  method="post" action="{% url 'page1' %}">#}
+{#                            {% csrf_token %}#}
+{#                            <input type="text" placeholder="Search movie by name " name="movie_name">#}
+{#                            <button type="submit"><i class="fa fa-search"></i></button>#}
+{#                        </form>#}
+{#                    </div>#}
+                <form method="post" action="{% url 'by_category' %}">
+                    {% csrf_token %}
+                    <label for="category">Choose a Category:</label>
+                    <select name="category" id="category">
+                        <option value="action-movies">Action Movies</option>
+                        <option value="funny-movies">Funny Movies</option>
+                        <option value="romantic-movies">Romantic Movies</option>
+                        <option value="horror-movies">Horror Movies</option>
+                        <option value="old-bollywood-movies">Old Movies</option>
+                        <option value="south-indian-dubbed-hindi">South Indian Hindi</option>
+                    </select>
+                    <br><br>
+                    <input type="submit" value="Submit">
+                </form>
+
+					<div class="inner">
+
+					<!-- Boxes -->
+						<div class="thumbnails">
+
+                            {% for movie_name,movie_link_and_image in images_titles_and_links.items %}
+
+							<div class="box">
+                                <form method="post" action={% url 'page2' %}>
+                                    {% csrf_token %}
+                                    <input type="hidden" name="link", value={{ movie_link_and_image.1 }}>
+                                    <input type="hidden" name="movie_name", value="{{ movie_name }}">
+                                    <a href="" class="image fit"><img src="{{ movie_link_and_image.0}}" alt="" /></a>
+
+                                    <div class="inner">
+                                        <h3 class="font-extrabold">{{ movie_name|truncatechars:50 }}</h3>
+                                        <input value="Watch Now" type="submit" class="button fit">
+
+                                    </div>
+                                </form>
+							</div>
+                            {% endfor %}
+
+				        </div>
+                        <div class="load_button"{{ hidden }}>
+                                <form id="load_more_movies" action="{% url 'index' %}" method = "get">
+                                    <input type="submit" id='load_more_button' value=" Load More">
+                                </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+			<!-- Footer -->
+				<footer id="footer">
+					<div class="inner">
+						<h2>Etiam veroeros lorem</h2>
+						<p>Pellentesque eleifend malesuada efficitur. Curabitur volutpat dui mi, ac imperdiet dolor tincidunt nec. Ut erat lectus, dictum sit amet lectus a, aliquet rutrum mauris. Etiam nec lectus hendrerit, consectetur risus viverra, iaculis orci. Phasellus eu nibh ut mi luctus auctor. Donec sit amet dolor in diam feugiat venenatis. </p>
+
+						<ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+						<p class="copyright">&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com/">Unsplash</a>. Videos: <a href="http://coverr.co/">Coverr</a>.</p>
+					</div>
+				</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+            <script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.poptrox.min.js' %}"></script>
+            <script src="{% static 'assets/js/skel.min.js' %}"></script>
+            <script src="{% static 'assets/js/util.js' %}"></script>
+            <script src="{% static 'assets/js/main.js' %}"></script>
+            <script src="{% static 'assets/js/loadbutton.js' %}"></script>
+
+	</body>
+</html>

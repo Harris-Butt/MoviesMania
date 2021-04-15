@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 1</title>
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+</head>
+{#<body>#}
+{#{% for link,image in images_and_links.items %}#}
+{#    <form method="post" action={% url 'page2' %}>#}
+{#        {% csrf_token %}#}
+{#        <img src="{{ image }}" name="image">#}
+{#        <input type="hidden" name="link", value={{ link }}>#}
+{#        <button type="submit">Watch</button>#}
+{#    </form>#}
+{##}
+{#{% endfor %}#}
+{#</body>#}
+
+
+
+	<body id="top">
+        <header class="header">
+            <div class="logo">Movies Mania</div>
+            <form class="search-form"  method="post" action="{% url 'page1' %}">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Search movie by name " name="movie_name">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+            <div class="navbar">
+                <ul>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li>Contact Us</li>
+                    <li>About Us</li>
+                </ul>
+            </div>
+
+        </header>
+			<!-- Main -->
+				<div id="main">
+					<div class="inner">
+
+					<!-- Boxes -->
+						<div class="thumbnails">
+                            {% for movie_name,movie_link_and_image in images_titles_and_links.items %}
+							<div class="box">
+                                <form method="post" action={% url 'page2' %}>
+                                    {% csrf_token %}
+                                    <input id="h_movie_link"  type="hidden" name="link", value={{ movie_link_and_image.1 }}>
+                                    <input id="h_movie_name"  type="hidden" name="movie_name", value="{{ movie_name }}">
+                                    <a href="" class="image fit"><img id="movie_image" src="{{ movie_link_and_image.0}}" alt="" /></a>
+
+                                    <div class="inner">
+                                        <h3 id="movie_name"class="font-extrabold">{{ movie_name|truncatechars:50 }}</h3>
+                                        <input value="Watch Now" type="submit" class="button fit">
+
+                                    </div>
+                                </form>
+							</div>
+                            {% endfor %}
+						</div>
+                        <div {{ hidden }}  class="load_button">
+                                <form {{ hidden}} id="load_more_movies" action="{% url 'page1' %}" method = "get">
+                                    <input {{ hidden }} type="submit" id='load_more_button' value=" Load More">
+                                </form>
+                        </div>
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<div class="inner">
+						<h2>Etiam veroeros lorem</h2>
+						<p>Pellentesque eleifend malesuada efficitur. Curabitur volutpat dui mi, ac imperdiet dolor tincidunt nec. Ut erat lectus, dictum sit amet lectus a, aliquet rutrum mauris. Etiam nec lectus hendrerit, consectetur risus viverra, iaculis orci. Phasellus eu nibh ut mi luctus auctor. Donec sit amet dolor in diam feugiat venenatis. </p>
+
+						<ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+						<p class="copyright">&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com/">Unsplash</a>. Videos: <a href="http://coverr.co/">Coverr</a>.</p>
+					</div>
+				</footer>
+
+		<!-- Scripts -->
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+            <script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.poptrox.min.js' %}"></script>
+            <script src="{% static 'assets/js/skel.min.js' %}"></script>
+            <script src="{% static 'assets/js/util.js' %}"></script>
+            <script src="{% static 'assets/js/main.js' %}"></script>
+            <script src="{% static 'assets/js/loadbutton.js' %}"></script>
+
+	</body>
+</html>

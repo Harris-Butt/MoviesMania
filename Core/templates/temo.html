@@ -1,0 +1,18 @@
+{% for movie_name,movie_link_and_image in images_titles_and_links.items %}
+    <div class="box">
+        <form method="post" action={% url 'page2' %}>
+            {% csrf_token %}
+            <input   type="hidden" name="link", value={{ movie_link_and_image.1 }}>
+
+
+            <input  type="hidden" name="movie_name", value="{{ movie_name }}">
+
+
+            <a href="" class="image fit"><img  src="{{ movie_link_and_image.0}}" alt="" /></a>
+            <div class="inner">
+                <h3 class="font-extrabold">{{ movie_name|truncatechars:50 }}</h3>
+                <input value="Watch Now" type="submit" class="button fit">
+            </div>
+        </form>
+    </div>
+{% endfor %}
